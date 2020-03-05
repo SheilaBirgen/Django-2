@@ -30,5 +30,20 @@ def registration(request):
     }     
     return render(request,'users/register.html', context)   
 
-
-        
+@login_required
+def image(request)
+    image = image.objects.all()
+    users = User.objects.exclude(id=request.user.id)
+    following = Following.objects.get(current_user=request.user)
+    followters = followinf.users.all()
+    comments = Comment.objects.all()
+    comment_form = CommentForm()
+    context = {
+        'image':image,
+        'comment_form':comment_form,
+        'comments':comments,
+        'users':users,
+        'followers':followers,
+    }
+    return render(request,'posts.html', context)
+ 

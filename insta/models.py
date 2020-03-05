@@ -5,7 +5,7 @@ import django.contrib.auth.models import User
 
 # Create your models here.
 class Image(models.Model):
-    image = CloudinaryField('images')
+    # image = CloudinaryField('images')
     author = models.ForeignKey('auth.user',on_delete=models.CASCADE)
     caption = models.TextField()
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
