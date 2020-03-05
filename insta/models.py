@@ -1,4 +1,7 @@
 from django.db import models
+import datetime as dt
+import django.contrib.auth.models import User
+
 
 # Create your models here.
 class Image(models.Model):
@@ -8,7 +11,8 @@ class Image(models.Model):
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     posted_at = models.DateTimeField(auto_now=True)
 
-    
+    def __str__(self):
+        return f'{self.author} Image'
 
     def save_image(self):
         return self.save()
