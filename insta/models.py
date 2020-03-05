@@ -8,6 +8,7 @@ class Image(models.Model):
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     posted_at = models.DateTimeField(auto_now=True)
 
+    
 
     def save_image(self):
         return self.save()
@@ -26,6 +27,8 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
@@ -38,3 +41,7 @@ class Comment(models.Model):
 
     def save_comment(self):
         self.save()
+
+class Following(models.Model):
+    users = models.ManyToManyField(User, related_name='friend_set')
+    current_user = models.ForeignKey(User, related_name='owner', on_delete=models.PROTECT, null=True)
