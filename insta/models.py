@@ -1,18 +1,20 @@
 from django.db import models
 import datetime as dt
-import django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 # Create your models here.
-class Image(models.Model):
-    # image = CloudinaryField('images')
-    author = models.ForeignKey('auth.user',on_delete=models.CASCADE)
+class Post(models.Model):
+    image = CloudinaryField('images')
+    user = models.ForeignKey('auth.User',on_delete=models.CASCADE)
     caption = models.TextField()
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     posted_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.author} Image'
+        return f'{self.user} Post'
 
     def save_image(self):
         return self.save()
