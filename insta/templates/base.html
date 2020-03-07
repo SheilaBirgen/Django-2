@@ -11,10 +11,23 @@
 
 </head>
 <body>
-    {% block styles%}
+    {% block navbar%}
     
     {% 'navbar.html' %}
 
     {% endblock %}
+    <div class='container-fluid content'>
+        <div class="row col-md-6">
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                  {{message}}
+                </div>
+              {% endfor %}
+            {% endif %}
+
+        </div>
+
+    </div>
 </body>
 </html>
