@@ -70,3 +70,21 @@ def post_create(request):
         "form":form,
     }
     return render(request, 'post_create.html', context)
+
+@login_required
+def comment(request, post_id):
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            post = Post.get_post(post_id)
+            comment.post = post
+            comment.save()
+            return redirect('posts')
+    else:
+        comment_form = CommentForm()
+    context = {
+        "comment_form":comment_form,
+    }
+    return render(request, 'posts.html', context)
