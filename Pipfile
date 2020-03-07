@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 pillow = "*"
 cloudinary = "*"
+django-registration = "*"
 
 [dev-packages]
 
