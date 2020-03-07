@@ -53,4 +53,20 @@ def image(request):
         'followers':followers,
     }
     return render(request,'posts.html', context)
- 
+
+@login_required
+def post_create(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST,request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            messages.success(request, f'You post have been created successfully!!')
+            return redirect('posts')
+    else:
+        form = PostForm()
+    context = {
+        "form":form,
+    }
+    return render(request, 'post_create.html', context)
