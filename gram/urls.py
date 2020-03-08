@@ -19,8 +19,7 @@ from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('insta.urls')),
-    path('accounts/',include('django_registration.backends.one_step.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    path('',include("insta.url")),
+    path('accounts/',include('django_registration.backends.one_step.url')),
+    path('tinymce/', include('tinymce.url')),
 ]

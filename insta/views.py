@@ -1,23 +1,14 @@
-from django.shortcuts import render,redirect,
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import *
-from .models import Post, Comment, Profile, Followers
+from .models import Post, Comment, Profile, Following
 
 
 # Create your views here.
-def account():
-    posts = Post.Objects.all()
-    return render(request ,'index.html', {'posts':posts})
-
-@login required()
-def  profile(request):
-    return render(request,'registration/profile.html')
-
 def registration(request):
     if request.method == 'Post':
         form = Register(request.POST)
-        if form.is valid():
+        if form.is_valid():
             username = form.cleaned_data.get('username')
             form.save()
             username =form.cleaned_data('username')
@@ -26,7 +17,7 @@ def registration(request):
             recipient = User(username=username,email=email)
             try:
                 send_welcome_email(username,email)
-                message.success(request, f'Account for {} has been created successfully!').format(username)
+                message.success(request, f'Account has been created successfully!')
             except:
                 print('error')
             return redirect('login')
@@ -38,14 +29,14 @@ def registration(request):
     return render(request,'users/register.html', context)   
 
 @login_required
-def image(request):
-    image = image.objects.all()
+def post(request):
+    posts = Post.objects.all()
     users = User.objects.exclude(id=request.user.id)
     following = Following.objects.get(current_user=request.user)
     followers = followers.users.all()
     comments = Comment.objects.all()
-    context = {
     comment_form = CommentForm()
+    context = {
         'image':image,
         'comment_form':comment_form,
         'comments':comments,
@@ -88,3 +79,10 @@ def comment(request, post_id):
         "comment_form":comment_form,
     }
     return render(request, 'posts.html', context)
+@login_required
+def commenting(request, post_id):
+    posts = Post.objects.get(pk=post_id)
+    context ={
+        "posts":posts,
+    }
+    return render(request, 'comments.html', context)
