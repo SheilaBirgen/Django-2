@@ -4,12 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-pillow = "*"
+Django = "*"
+Pillow = "*"
 cloudinary = "*"
-django-registration = "*"
 django-crispy-forms = "*"
 django-tinymce = "*"
+django = "*"
+django-registration = "*"
+bootstrap4 = "*"
 
 [dev-packages]
 

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
- 
+import cloudinary 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'insta',
     'crispy_forms',
     'tinymce',
+    'cloudinary',
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware'
+
 ]
 
 ROOT_URLCONF = 'gram.urls'
@@ -73,6 +77,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gram.wsgi.application'
+
+cloudinary.config(
+    cloud_name = 'dk3od0bot',
+    api_key = '843714146784249',
+    api_secret = 'XVGtwzu47k0WPbbdqpkXCWW91Ck',
+    secure = True
+)
 
 
 # Database
