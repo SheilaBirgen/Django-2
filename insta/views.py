@@ -7,6 +7,11 @@ from .forms import *
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
+def index(request):
+    post=Post.objects.all()
+    comment=Comment.objects.all()
+    return render(request,'index.html',{"post":Post,"comment":Comment})
+    
 def registration(request):
     if request.method == 'Post':
         form = Register(request.POST)
@@ -28,10 +33,10 @@ def registration(request):
     context = {
         'form':form,
     }      
-    return render(request,'users/register.html', context)   
+    return render(request,'insta/register.html', context) 
 
-@login_required(login_url='/accounts/login/')
-def post(request):
+@login_required
+def posts(request):
     posts = Post.objects.all()
     users = User.objects.exclude(id=request.user.id)
     following = Following.objects.get(current_user=request.user)
@@ -82,7 +87,7 @@ def comment(request, post_id):
     }
    
     return render(request, 'posts.html', context)
-@login_required(login_url='/accounts/login/')
+
 def commenting(request, post_id):
     posts = Post.objects.get(pk=post_id)
     context ={
@@ -90,7 +95,7 @@ def commenting(request, post_id):
     }
     return render(request, 'comments.html', context)
 
-@login_required(login_url='/accounts/login/')
+@login_required()
 def profile(request):
     posts = Post.objects.all()
     if request.method == 'POST':

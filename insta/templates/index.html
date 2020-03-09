@@ -7,7 +7,46 @@
   </head>
   <body>
     {% block content %}
-    <h1>Welcome to InstaPic</h1>
-    {% endblock %}
+{{block.super}}
+
+<h1 class='text-center'> INSTACLONE </h1>
+<div class="container-fluid display">
+    <div class="row">
+    {% for image in images %}
+    
+    <div class="col-md-4 ">
+        <h1>{{ image.profile }}</h1> 
+        <img src="{{image.image.url}}" class="img-fluid img-thumbnail img-responsive" alt="image" height="300px"
+            width="600px" padding-top="3px" data-toggle="modal" data-target="#{{image.name}}{{image.id}}"><br>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+    {% for post in posts %}
+    <div class="col-md-7">
+     <div class="panel panel-default">
+         <div class="panel-heading">
+            <img class="img-circle" src=" {{ post.user.profile.image.url }} " width="50" height="50">
+            <p> {{ post.author }} </p>
+         </div>
+         <div class="panel-body">
+            {% if post.cover %}
+            <img src="{{ post.image.url}}" alt="{{ post.caption }}" width="200" height="200">
+          {% else %}
+          <p></p>
+           {% endif %} 
+         </div>
+            <div class="article-metadata">
+                 
+                 
+             </div>
+             <h2> {{ post.caption }} </h2>
+             <p> {{ post.content }} </p>
+             <a href="{% url 'about'%}">Comments: {{ post.comments.count }}</a>
+         </div>
+         </div>
+    {% endfor %}
+
+{% endblock %}
   </body>
 </html>
