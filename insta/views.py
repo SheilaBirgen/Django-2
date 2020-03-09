@@ -33,7 +33,7 @@ def registration(request):
     context = {
         'form':form,
     }      
-    return render(request,'insta/register.html', context) 
+    return render(request,'registration/register.html', context) 
 
 @login_required
 def posts(request):
@@ -97,7 +97,6 @@ def commenting(request, post_id):
 
 @login_required()
 def profile(request):
-    posts = Post.objects.all()
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -112,8 +111,7 @@ def profile(request):
 
     context = {
     'user_form':user_form,
-    'profile_form':profile_form,
-    'posts':posts,
+    'profile_form':profile_form
     }
     return render(request, 'profile.html', context)
 

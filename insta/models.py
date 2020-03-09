@@ -8,7 +8,7 @@ from django.utils import timezone
 # Create your models here.
 class Post(models.Model):
     image = CloudinaryField('images')
-    user = models.ForeignKey('auth.User',on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
     caption = models.TextField()
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     posted_at = models.DateTimeField(auto_now=True)
@@ -27,11 +27,17 @@ class Post(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.png', upload_to='profile_pics/')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
     bio = models.CharField(max_length=255)
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+    class Meta:
+        db_table = 'profile'
+
+    def save_profile(self):
+        self.save()
 
     
 
@@ -47,6 +53,9 @@ class Comment(models.Model):
 
     def save_comment(self):
         self.save()
+
+    class Meta:
+        db_table = 'comment'
 
 class Following(models.Model):
     users = models.ManyToManyField(User, related_name='friend_set')
