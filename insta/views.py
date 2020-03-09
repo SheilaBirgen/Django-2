@@ -78,7 +78,9 @@ def comment(request, post_id):
     context = {
         "comment_form":comment_form,
     }
+   
     return render(request, 'posts.html', context)
+
 @login_required
 def commenting(request, post_id):
     posts = Post.objects.get(pk=post_id)
@@ -86,3 +88,69 @@ def commenting(request, post_id):
         "posts":posts,
     }
     return render(request, 'comments.html', context)
+
+@login_required
+def profile(request):
+    posts = Post.objects.all()
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, f'Your account has been successfully updated')
+            return redirect('profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+    'user_form':user_form,
+    'profile_form':profile_form,
+    'posts':posts,
+    }
+    return render(request, 'profile.html', context)
+
+
+def search_user(request):
+    if 'post' in request.GET and request.GET['post']:
+        search_term = request.GET["post"]
+        searched_posts = Post.search_by_author(search_term)
+        message = f'search_term'
+        author = User.objects.all()
+        context = {
+            "author":author,
+            "posts":searched_posts,
+            "message":message,
+
+        }
+        return render(request, 'search.html', context)
+    else:
+        message = "You haven't searched for any user"
+        context = {
+            "message":message,
+        }
+        return render(request, 'search.html', context)
+
+
+@login_required
+def likes(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def follow(request,operation,pk):
+    new_follower = User.objects.get(pk=pk)
+    if operation == 'add':
+        Following.make_user(request.user, new_follower)
+    elif operation == 'remove':
+        Following.loose_user(request.user, new_follower)
+
+    return redirect('posts')
