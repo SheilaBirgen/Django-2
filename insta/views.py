@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Post, Comment, Profile, Following
+from .forms import *
 
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def registration(request):
     if request.method == 'Post':
         form = Register(request.POST)
@@ -23,25 +25,25 @@ def registration(request):
             return redirect('login')
     else:
         form=RegisterForm()
-    contect = {
+    context = {
         'form':form,
     }      
     return render(request,'users/register.html', context)   
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def post(request):
     posts = Post.objects.all()
     users = User.objects.exclude(id=request.user.id)
     following = Following.objects.get(current_user=request.user)
-    followers = followers.users.all()
+    followers = following.users.all()
     comments = Comment.objects.all()
     comment_form = CommentForm()
     context = {
-        'image':image,
-        'comment_form':comment_form,
-        'comments':comments,
-        'users':users,
-        'followers':followers,
+        "posts":posts,
+        "comment_form":comment_form,
+        "comments":comments,
+        "users":users,
+        "followers":followers,
     }
     return render(request,'posts.html', context)
 
@@ -80,8 +82,7 @@ def comment(request, post_id):
     }
    
     return render(request, 'posts.html', context)
-
-@login_required
+@login_required(login_url='/accounts/login/')
 def commenting(request, post_id):
     posts = Post.objects.get(pk=post_id)
     context ={
@@ -89,7 +90,7 @@ def commenting(request, post_id):
     }
     return render(request, 'comments.html', context)
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def profile(request):
     posts = Post.objects.all()
     if request.method == 'POST':
