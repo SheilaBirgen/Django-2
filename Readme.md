@@ -28,3 +28,25 @@ InstaPic is a platform where users can upload  their photos and add caption to t
 ##### After ensuring you have all the above
   - ```python3 manage.py runserver``` to run the project.
   - Then click the local host link given to open the project on a browser ```http://127.0.0.1:8000/```.
+
+## Technologies Used
+
+- dj-database-url==0.5.0
+- Django==1.11
+- django-bootstrap3==12.0.3
+- django-heroku==0.3.1
+- Pillow==7.0.0
+- psycopg2==2.8.4
+- python-decouple==3.3
+- whitenoise==5.0.1
+
+## Known Bugs
+There are no known bugs at the moment
+
+## Support and contact Details
+You can reach out to me through the github account SheilaBirgen
+or on my email as jeronobergen@gmail.com
+
+## License
+@2019 Sheila Birgen 
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)

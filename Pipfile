@@ -13,6 +13,7 @@ django = "*"
 django-registration = "*"
 bootstrap4 = "*"
 psycopg2 = "*"
+pillow = "*"
 
 [dev-packages]
 
