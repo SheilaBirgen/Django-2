@@ -28,6 +28,13 @@ InstaPic is a platform where users can upload  their photos and add caption to t
 ##### After ensuring you have all the above
   - ```python3 manage.py runserver``` to run the project.
   - Then click the local host link given to open the project on a browser ```http://127.0.0.1:8000/```.
+### BDD
+
+| Behaviour | Input | Output |
+| --------- | ------| ------ |
+|On loading the app you see the landing page with a navbar at the top and a sign up form| Click `register if its a new user` and `login`if registered | You are redirected to the landing page if you had left the page or just loads the landing page again if you are still on the landing page.|
+|Clicking the `create Posts` link on the navbar | Mouse click |You are redirected to a page where various posts are displayed.|
+|Clicking the `Logout`| Mouse click | Displays the `Home`, `<your username>` and `logout` links you are logged in`login`.|
 
 ## Technologies Used
 
@@ -41,11 +48,14 @@ InstaPic is a platform where users can upload  their photos and add caption to t
 - whitenoise==5.0.1
 
 ## Known Bugs
-There are no known bugs at the moment
+update of profile pictures isn't working currently
+
 
 ## Support and contact Details
 You can reach out to me through the github account SheilaBirgen
 or on my email as jeronobergen@gmail.com
+## CodeBeat Badge
+[![codebeat badge](https://codebeat.co/badges/69428051-4953-4a7c-a3fb-0c0de42fb3d7)](https://codebeat.co/projects/github-com-sheilabirgen-django-2-master)
 
 ## License
 @2019 Sheila Birgen 

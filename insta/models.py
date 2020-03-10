@@ -24,7 +24,12 @@ class Post(models.Model):
 
     def update_image(self):
         return self.update()
-
+        
+    @classmethod
+    def update_caption(cls, id, caption):
+        cls.objects.filter(id=id).update(image_caption=caption)
+        updated_caption = cls.objects.get(id=id)
+        return updated_caption   
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
@@ -36,14 +41,15 @@ class Profile(models.Model):
     class Meta:
         db_table = 'profile'
 
-    def save_profile(self):
+    def save_user_profile(self):
         self.save()
+        
     def delete_user_profile(self):
         self.delete()
 
     @classmethod
-    def update_profile_pic(cls, id, profile_pic):
-        cls.objects.filter(id=id).update(profile_pic=profile_pic)
+    def update_profile_pic(cls, id,image):
+        cls.objects.filter(id=id).update(image=image)
         updated_profile_pic = cls.objects.get(id=id)
         return updated_profile_pic
     

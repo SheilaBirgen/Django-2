@@ -13,7 +13,7 @@ def registration(request):
         if form.is_valid():
             form.save()
             username =form.cleaned_data('username')
-            email = form.cleaned_data('email'
+            email = form.cleaned_data('email')
             recipient = User(username=username,email=email)
             try:
                 send_welcome_email(username,email)
