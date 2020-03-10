@@ -16,8 +16,8 @@
     
     <div class="col-md-4 ">
         <h1>{{ image.profile }}</h1> 
-        <img src="{{image.image.url}}" class="img-fluid img-thumbnail img-responsive" alt="image" height="300px"
-            width="600px" padding-top="3px" data-toggle="modal" data-target="#{{image.name}}{{image.id}}"><br>
+        <img src="{{image.image.url}}" class="img-fluid img-thumbnail img-responsive" alt="image" height="30px"
+            width="30px" padding-top="3px" data-toggle="modal" data-target="#{{image.name}}{{image.id}}"><br>
     </div>
     {% endfor %}
     </div>
@@ -27,11 +27,11 @@
      <div class="panel panel-default">
          <div class="panel-heading">
             <img class="img-circle" src=" {{ post.author.profile.image.url }} " width="50" height="50">
-            <p> {{ post.author }} </p>
+            <p> {{ post.user }} </p>
          </div>
          <div class="panel-body">
             {% if post.cover %}
-            <img src="{{ post.image.url}}" alt="{{ post.caption }}" width="200" height="200">
+            <img src="{{ post.image.url}}" alt="{{ post.caption }}" width="50" height="50">
           {% else %}
           <p></p>
            {% endif %} 

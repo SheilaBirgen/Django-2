@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Post, Comment, Profile, Following
+from .models import Post, Comment, Profile
 from .forms import *
 from django.contrib.auth.models import User
 
@@ -20,7 +20,7 @@ def registration(request):
                 message.success(request, f'Account has been created successfully!')
             except:
                 print('error')
-            return redirect('login')
+            return redirect('login') 
     else:
         form=RegisterForm()
     context = {
@@ -32,17 +32,12 @@ def registration(request):
 def posts(request):
     posts = Post.objects.all()
     users = User.objects.exclude(id=request.user.id)
-    following = Following.objects.get(current_user=request.user)
-    followers = following.users.all()
-    comments = Comment.objects.all()
     comment_form = CommentForm()
     context = {
         "posts":posts,
         "comment_form":comment_form,
-        "comments":comments,
         "users":users,
-        "followers":followers,
-        "following":following,
+        
     }
     return render(request,'posts.html', context)
 
@@ -144,11 +139,3 @@ def likes(request, post_id):
 
 
 
-def follow(request,operation,pk):
-    new_follower = User.objects.get(pk=pk)
-    if operation == 'add':
-        Following.make_user(request.user, new_follower)
-    elif operation == 'remove':
-        Following.loose_user(request.user, new_follower)
-
-    return redirect('posts')

@@ -70,6 +70,3 @@ class Comment(models.Model):
     class Meta:
         db_table = 'comment'
 
-class Following(models.Model):
-    user= models.ManyToManyField(User, related_name='friend_set')
-    current_user = models.ForeignKey(User, related_name='owner', on_delete=models.PROTECT, null=True)

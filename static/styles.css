@@ -102,3 +102,7 @@ a{
 .count{
   display: inline;
 }
+.posts{
+  height: 40px;
+  width: 40px;
+}

@@ -34,7 +34,7 @@ InstaPic is a platform where users can upload  their photos and add caption to t
 | --------- | ------| ------ |
 |On loading the app you see the landing page with a navbar at the top and a sign up form| Click `register if its a new user` and `login`if registered | You are redirected to the landing page if you had left the page or just loads the landing page again if you are still on the landing page.|
 |Clicking the `create Posts` link on the navbar | Mouse click |You are redirected to a page where various posts are displayed.|
-|Clicking the `Logout`| Mouse click | Displays the `Home`, `<your username>` and `logout` links you are logged in`login`.|
+|Clicking the `Logout`| Mouse click | Displays the `Home` and `logout` links you are logged in`login`.|
 
 ## Technologies Used
 
