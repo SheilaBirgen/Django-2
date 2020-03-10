@@ -91,8 +91,7 @@ cloudinary.config(
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'instagram',
         'USER': 'birgen',
         'PASSWORD': 'admin',
@@ -142,8 +141,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     ]
-STATICFILES_STORAGE=' whitenoise.storage.CompressedManifestStaticFilesStorage '
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+LOGIN_REDIRECT_URL=('index')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

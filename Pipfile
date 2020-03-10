@@ -12,6 +12,7 @@ django-tinymce = "*"
 django = "*"
 django-registration = "*"
 bootstrap4 = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

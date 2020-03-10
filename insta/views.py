@@ -3,24 +3,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Post, Comment, Profile, Following
 from .forms import *
-
+from django.contrib.auth.models import User
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
-def index(request):
-    post=Post.objects.all()
-    comment=Comment.objects.all()
-    return render(request,'index.html',{"post":Post,"comment":Comment})
-    
+ 
 def registration(request):
     if request.method == 'Post':
         form = Register(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
             form.save()
             username =form.cleaned_data('username')
-            email = form.cleaned_data('email')
-            password = form.cleaned_data('password')
+            email = form.cleaned_data('email'
             recipient = User(username=username,email=email)
             try:
                 send_welcome_email(username,email)
@@ -35,7 +28,7 @@ def registration(request):
     }      
     return render(request,'registration/register.html', context) 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def posts(request):
     posts = Post.objects.all()
     users = User.objects.exclude(id=request.user.id)
@@ -49,6 +42,7 @@ def posts(request):
         "comments":comments,
         "users":users,
         "followers":followers,
+        "following":following,
     }
     return render(request,'posts.html', context)
 
@@ -121,9 +115,9 @@ def search_user(request):
         search_term = request.GET["post"]
         searched_posts = Post.search_by_author(search_term)
         message = f'search_term'
-        author = User.objects.all()
+        user = User.objects.all()
         context = {
-            "author":author,
+            "user":user,
             "posts":searched_posts,
             "message":message,
 

@@ -1,5 +1,4 @@
 from django.db import models
-import datetime as dt
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -7,10 +6,11 @@ from django.utils import timezone
 
 # Create your models here.
 class Post(models.Model):
-    image = CloudinaryField('images')
-    author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
-    caption = models.TextField()
-    likes = models.ManyToManyField(User, related_name='likes', blank=True)
+    image = CloudinaryField('images', null=True)
+    user = models.ForeignKey('auth.User',on_delete=models.CASCADE, null=True)
+    caption = models.CharField(max_length=200)
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE, blank=True, null=True)
+    likes = models.PositiveIntegerField(default=0)
     posted_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Post(models.Model):
         return self.update()
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
     bio = models.CharField(max_length=255)
 
@@ -38,7 +38,14 @@ class Profile(models.Model):
 
     def save_profile(self):
         self.save()
+    def delete_user_profile(self):
+        self.delete()
 
+    @classmethod
+    def update_profile_pic(cls, id, profile_pic):
+        cls.objects.filter(id=id).update(profile_pic=profile_pic)
+        updated_profile_pic = cls.objects.get(id=id)
+        return updated_profile_pic
     
 
 
@@ -58,5 +65,5 @@ class Comment(models.Model):
         db_table = 'comment'
 
 class Following(models.Model):
-    users = models.ManyToManyField(User, related_name='friend_set')
+    user= models.ManyToManyField(User, related_name='friend_set')
     current_user = models.ForeignKey(User, related_name='owner', on_delete=models.PROTECT, null=True)
