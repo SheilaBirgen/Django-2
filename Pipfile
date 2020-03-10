@@ -14,6 +14,11 @@ django-registration = "*"
 bootstrap4 = "*"
 psycopg2 = "*"
 pillow = "*"
+gunicorn = "*"
+whitenoise = "*"
+python-decouple = "*"
+dj-database-url = "*"
+django-heroku = "*"
 
 [dev-packages]
 
