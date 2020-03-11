@@ -83,15 +83,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'gram.wsgi.application'
 
 cloudinary.config(
-#     cloud_name='dk3od0bot',
-#     api_key='843714146784249',
-#     api_secret='XVGtwzu47k0WPbbdqpkXCWW91Ck',
-# )
-  cloud_name = os.environ.get('CLOUD_NAME'),
-  api_key = os.environ.get('API_KEY'),
-  api_secret = os.environ.get('API_SECRET'),
+  cloud_name = config('CLOUD_NAME'),
+  api_key = config('API_KEY'),
+  api_secret = config('API_SECRET'),
   secure = True
-
+)
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 # development
