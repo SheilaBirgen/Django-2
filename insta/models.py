@@ -2,7 +2,8 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.utils import timezone
-
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Post(models.Model):
@@ -64,7 +65,16 @@ class Profile(models.Model):
         cls.objects.filter(id=id).update(image=image)
         updated_profile_pic = cls.objects.get(id=id)
         return updated_profile_pic
-    
+    # Create Profile when creating a User
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+# Save Profile when saving a User
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save
 
 
 class Comment(models.Model):

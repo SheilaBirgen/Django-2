@@ -46,6 +46,8 @@ InstaPic is a platform where users can upload  their photos and add caption to t
 - psycopg2==2.8.4
 - python-decouple==3.3
 - whitenoise==5.0.1
+## Database Screenshot
+![](media/db-screenshot.png)
 
 ## Known Bugs
 update of profile pictures isn't working currently

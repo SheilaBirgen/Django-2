@@ -3,11 +3,6 @@
 .content{
   font-family: 'Josefin Sans', sans-serif;
 }
-.container{
-
-  background-color: #F8F8FF;
-}
-
 .account-profile{
   height: 125px;
   width: 125px;
@@ -16,7 +11,7 @@
 }
 
 .media{
-  background-color: #ffffff;
+  background-color: #ceb8b8;
   padding: 10px 20px;
   border-radius: 3px;
   border:1px solid #dddddd;
@@ -60,7 +55,6 @@ a{
 }
 .profile-image{
   display: inline-block;
-  background-color: #17a2b8;
   height: 30px;
   width: 30px;
   padding: 0;
@@ -104,4 +98,7 @@ a{
 .posts{
   height: 40px;
   width: 40px;
+}
+.nav{
+  background-color: darkgray;
 }

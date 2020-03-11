@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import *
 
-class ProfileTestClass(TestCase):
+class ProfileTestCases(TestCase):
     def setUp(self):
         self.user = User(username='user', email='email')
         self.user.save()
