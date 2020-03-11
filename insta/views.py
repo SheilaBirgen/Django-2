@@ -1,9 +1,9 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Post, Comment, Profile
+from .models import Post, Comment, Profile,User
 from .forms import *
-from django.contrib.auth.models import User
+
 
 # Create your views here.
  
@@ -86,6 +86,7 @@ def commenting(request, post_id):
 
 @login_required()
 def profile(request):
+    posts =Post.objects.all()
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -100,7 +101,8 @@ def profile(request):
 
     context = {
     'user_form':user_form,
-    'profile_form':profile_form
+    'profile_form':profile_form,
+    'posts':posts,
     }
     return render(request, 'profile.html', context)
 

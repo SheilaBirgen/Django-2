@@ -10,7 +10,7 @@ class Post(models.Model):
     user = models.ForeignKey('auth.User',on_delete=models.CASCADE, null=True)
     caption = models.CharField(max_length=200)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE, blank=True, null=True)
-    likes = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User,related_name='likes', blank=True)
     posted_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -22,6 +22,9 @@ class Post(models.Model):
     def delete_image(self):
         return self.delete()
 
+    def add_likes(self):
+        self.save()
+        
     def update_image(self):
         return self.update()
         
@@ -30,8 +33,17 @@ class Post(models.Model):
         cls.objects.filter(id=id).update(image_caption=caption)
         updated_caption = cls.objects.get(id=id)
         return updated_caption   
+
+    @classmethod
+    def get_post(cls,id):
+        try:
+            post = Post.objects.get(pk=id)
+        except ObjectDoesNotExist:
+            raise Http404()
+        return post
+
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
     bio = models.CharField(max_length=255)
 
