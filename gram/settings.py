@@ -94,6 +94,7 @@ cloudinary.config(
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# development
 if config('MODE')=="dev":
     DATABASES = {
         'default': {
